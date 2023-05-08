@@ -1,4 +1,4 @@
-provider "aws" {
+/*provider "aws" {
   region = var.aws_region
 }
 
@@ -60,3 +60,4 @@ tags= {
     Name = "my_elastic_ip"
   }
 }
+*/

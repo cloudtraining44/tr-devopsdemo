@@ -1,4 +1,4 @@
-resource "aws_instance" "mySonarInstance" {
+/*resource "aws_instance" "mySonarInstance" {
       ami           = "ami-0ee23bfc74a881de5"
       key_name = var.key_name
       instance_type = "t2.micro"
@@ -47,3 +47,4 @@ tags= {
     Name = "sonar_elastic_ip"
   }
 }
+*/
