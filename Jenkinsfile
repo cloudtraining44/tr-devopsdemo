@@ -23,7 +23,7 @@ pipeline {
         stage ("Action") {
             steps {
                 echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} TF_VAR_name="testing-web"--auto-approve') 
+                sh ('terraform ${action} --auto-approve') 
            }
         }
     }
