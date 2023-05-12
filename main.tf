@@ -13,8 +13,8 @@ resource "aws_instance" "demo-instance" {
 
 #Security Group Resource to open port 80 
 resource "aws_security_group" "allow_port80" {
-  name        = "Jenkins SG"
-  description = "Jenkins SG"
+  name        = "Web-SG"
+  description = "Web-SG"
 
   ingress {
     description      = "Port 80 from Everywhere"
