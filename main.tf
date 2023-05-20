@@ -5,8 +5,9 @@ resource "aws_instance" "demo-instance" {
   instance_type          = "t2.micro"
   key_name               = "demokp0512"
   vpc_security_group_ids = [aws_security_group.allow_port80.id]
-  user_data              = "${file("userdata.sh")}"
+  user_data              = "${file("userdata_jenkins.sh")}"
   tags = {
+    Name  = "Jenkins-VM"
     Owner = "Terraform"
   }
 }
