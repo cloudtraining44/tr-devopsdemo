@@ -2,9 +2,9 @@
 
 resource "aws_instance" "demo-instance" {
   ami                    = "ami-0889a44b331db0194"
-  instance_type          = "t2.micro"
-  key_name               = "demokp0512"
-  vpc_security_group_ids = [aws_security_group.allow_port80.id]
+  instance_type          = "t2.medium"
+  key_name               = "demokp"
+  vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
   user_data              = "${file("userdata_jenkins.sh")}"
   tags = {
     Name  = "Jenkins-VM"
@@ -13,9 +13,9 @@ resource "aws_instance" "demo-instance" {
 }
 
 #Security Group Resource to open port 80 
-resource "aws_security_group" "allow_port80" {
-  name        = "Web-SG"
-  description = "Web-SG"
+resource "aws_security_group" "JenkinsSG" {
+  name        = "Jenkins-SG"
+  description = "Jenkins-SG"
 
   ingress {
     description      = "Port 80 from Everywhere"
@@ -23,7 +23,6 @@ resource "aws_security_group" "allow_port80" {
     to_port          = 80
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-  #  ipv6_cidr_blocks = ["::/0"]
   }
 
   ingress {
@@ -32,25 +31,22 @@ resource "aws_security_group" "allow_port80" {
     to_port          = 8080
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-  #  ipv6_cidr_blocks = ["::/0"]
   }
 
     ingress {
-    description      = "ssh from Everywhere"
+    description      = "Port 22 from Everywhere"
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-  #  ipv6_cidr_blocks = ["::/0"]
   }
 
     ingress {
-    description      = "Port 80 from Everywhere"
+    description      = "Port 443 from Everywhere"
     from_port        = 443
     to_port          = 443
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-  #  ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
@@ -58,7 +54,6 @@ resource "aws_security_group" "allow_port80" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-  # ipv6_cidr_blocks = ["::/0"]
   }
 }
 
