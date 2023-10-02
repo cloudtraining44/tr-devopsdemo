@@ -8,7 +8,7 @@ cat << 'EOF' > /var/www/html/index.html
 <html>
 <body>
 
-<h1>Welcome to Jenkins training</h1>
+<h1>Welcome to DevOps Demo, First Lab </h1>
 <p>This is our first jenkins job</p>
 
 </body>
