@@ -1,13 +1,16 @@
 #EC2 instance using UserData
 
 resource "aws_instance" "demo-instance" {
-  ami                    = "ami-0889a44b331db0194"
+  ami                    = "ami-0bb4c991fa89d4b9b"
   instance_type          = "t2.medium"
-  key_name               = "demokp"
+  key_name               = "demokp0512"
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
   user_data              = "${file("userdata_jenkins.sh")}"
+  root_block_device {
+    volume_size = "30"
+  }
   tags = {
-    Name  = "Jenkins-VM"
+    Name  = "Jenkins01"
     Owner = "Terraform"
   }
 }
@@ -42,9 +45,9 @@ resource "aws_security_group" "JenkinsSG" {
   }
 
     ingress {
-    description      = "Port 443 from Everywhere"
-    from_port        = 443
-    to_port          = 443
+    description      = "Port 8090 from Everywhere"
+    from_port        = 8090
+    to_port          = 8090
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }

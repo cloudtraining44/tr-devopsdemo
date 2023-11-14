@@ -1,21 +1,21 @@
 #EC2 instance using UserData
 
-resource "aws_instance" "demo-instance" {
-  ami                    = "ami-0bb4c991fa89d4b9b"
-  instance_type          = "t2.medium"
-  key_name               = "demokp"
-  vpc_security_group_ids = [aws_security_group.web-sg-01.id]
-  user_data              = "${file("userdata_maven.sh")}"
+resource "aws_instance" "tomcat-instance" {
+  ami                    = "ami-0889a44b331db0194"
+  instance_type          = "t2.micro"
+  key_name               = "demokp0512"
+  vpc_security_group_ids = [aws_security_group.tomcat-sg-01.id]
+  user_data              = "${file("userdata_tomcat.sh")}"
   tags = {
-    Name  = "Web-01"
+    Name  = "Tomcat"
     Owner = "Terraform"
   }
 }
 
 #Security Group Resource to open port 80 
-resource "aws_security_group" "web-sg-01" {
-  name        = "Web-SG-01"
-  description = "Web-SG-01"
+resource "aws_security_group" "tomcat-sg-01" {
+  name        = "tomcat-SG-01"
+  description = "tomcat-SG-01"
 
   ingress {
     description      = "Port 80 from Everywhere"
@@ -36,9 +36,18 @@ resource "aws_security_group" "web-sg-01" {
   }
 
     ingress {
-    description      = "Port 80 from Everywhere"
+    description      = "Port 443 from Everywhere"
     from_port        = 443
     to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  #  ipv6_cidr_blocks = ["::/0"]
+  }
+
+    ingress {
+    description      = "Port 8090 from Everywhere"
+    from_port        = 8090
+    to_port          = 8090
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   #  ipv6_cidr_blocks = ["::/0"]
@@ -54,5 +63,5 @@ resource "aws_security_group" "web-sg-01" {
 }
 
 output "public_ip" {
-  value = aws_instance.demo-instance.public_ip
+  value = aws_instance.tomcat-instance.public_ip
 }

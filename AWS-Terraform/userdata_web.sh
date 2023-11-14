@@ -9,7 +9,7 @@ cat << 'EOF' > /var/www/html/index.html
 <body>
 
 <h1>Welcome to DevOps Demo, First Lab </h1>
-<p>This is our first jenkins job</p>
+<p>We are in Linux Essentials module.</p>
 
 </body>
 </html>
