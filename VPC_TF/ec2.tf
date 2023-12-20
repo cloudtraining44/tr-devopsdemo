@@ -5,7 +5,8 @@ resource "aws_instance" "demo-instance" {
   instance_type          = "t2.micro"
   key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.web-sg-01.id]
-  user_data              = "${file("userdata_web.sh")}"
+#  user_data              = "${file("userdata_web.sh")}"
+  subnet_id              = "subnet-04dfa3acb690ea855"
   tags = {
     Name  = "Web-02"
     Owner = "Terraform"
@@ -16,6 +17,7 @@ resource "aws_instance" "demo-instance" {
 resource "aws_security_group" "web-sg-01" {
   name        = "Web-SG-01"
   description = "Web-SG-01"
+  vpc_id      = "vpc-07105041fcd581e03"
 
   ingress {
     description      = "Port 80 from Everywhere"

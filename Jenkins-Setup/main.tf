@@ -1,11 +1,11 @@
 #EC2 instance using UserData
 
 resource "aws_instance" "demo-instance" {
-  ami                    = "ami-0bb4c991fa89d4b9b"
+  ami                    = "ami-0aedf6b1cb669b4c7"
   instance_type          = "t2.medium"
-  key_name               = "demokp0512"
+  key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
-  user_data              = "${file("userdata_jenkins.sh")}"
+#  user_data              = "${file("userdata_Centos_Jenkins.sh")}"
   root_block_device {
     volume_size = "30"
   }

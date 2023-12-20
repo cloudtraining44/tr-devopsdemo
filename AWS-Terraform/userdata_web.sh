@@ -8,8 +8,8 @@ cat << 'EOF' > /var/www/html/index.html
 <html>
 <body>
 
-<h1>Welcome to DevOps Demo, First Lab </h1>
-<p>We are in Linux Essentials module.</p>
+<h1>Welcome web02 webserver </h1>
+<p>You are in web02.</p>
 
 </body>
 </html>
