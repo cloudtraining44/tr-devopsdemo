@@ -10,7 +10,11 @@ pipeline {
     
         stage ("terraform init") {
             steps {
-                sh ("terraform init ") 
+                sh '''
+                cd AWS-Terraform
+                ls -l
+                terraform init
+                '''
             }
         }
         
