@@ -5,7 +5,7 @@ resource "aws_instance" "demo-instance" {
   instance_type          = "t2.medium"
   key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
-#  user_data              = "${file("userdata_Centos_Jenkins.sh")}"
+  user_data              = "${file("userdata_jenkins_yum.sh")}"
   root_block_device {
     volume_size = "30"
   }

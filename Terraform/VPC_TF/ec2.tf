@@ -1,14 +1,31 @@
 #EC2 instance using UserData
 
-resource "aws_instance" "demo-instance" {
+resource "aws_instance" "webserver" {
   ami                    = "ami-0759f51a90924c166"
   instance_type          = "t2.micro"
   key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.web-sg-01.id]
 #  user_data              = "${file("userdata_web.sh")}"
-  subnet_id              = "subnet-04dfa3acb690ea855"
+  subnet_id              = "subnet-0e2f2d482271aa409"
+    associate_public_ip_address = true
+
   tags = {
-    Name  = "Web-02"
+    Name  = "Web-01"
+    Owner = "Terraform"
+  }
+}
+
+resource "aws_instance" "app-server" {
+  ami                    = "ami-0759f51a90924c166"
+  instance_type          = "t2.micro"
+  key_name               = "demokp"
+  vpc_security_group_ids = [aws_security_group.web-sg-01.id]
+#  user_data              = "${file("userdata_web.sh")}"
+  subnet_id              = "subnet-063753a6689833284"
+#  associate_public_ip_address = true
+
+  tags = {
+    Name  = "app-01"
     Owner = "Terraform"
   }
 }
@@ -17,7 +34,7 @@ resource "aws_instance" "demo-instance" {
 resource "aws_security_group" "web-sg-01" {
   name        = "Web-SG-01"
   description = "Web-SG-01"
-  vpc_id      = "vpc-07105041fcd581e03"
+  vpc_id      = "vpc-0a4ae9b5ffd510117"
 
   ingress {
     description      = "Port 80 from Everywhere"
@@ -56,5 +73,9 @@ resource "aws_security_group" "web-sg-01" {
 }
 
 output "public_ip" {
-  value = aws_instance.demo-instance.public_ip
+  value = aws_instance.webserver.public_ip
+}
+
+output "private_ip" {
+  value = aws_instance.app-server.public_ip
 }
