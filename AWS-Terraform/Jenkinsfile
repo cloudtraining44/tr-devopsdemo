@@ -30,8 +30,8 @@ pipeline {
 
         stage ("Action") {
             steps {
-                echo "Terraform action is --> ${action}
                 sh '''
+                echo "Terraform action is --> ${action}"
                 cd AWS-Terraform
                 ls -l
                 terraform ${action} -auto-approve -var="access_key=${access_key}" -var="secret_access_key=${secret_access_key}"
