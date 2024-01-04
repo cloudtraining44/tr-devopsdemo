@@ -23,6 +23,7 @@ pipeline {
                 sh '''
                 export AWS_PROFILE=${profile}
                 echo $AWS_PROFILE
+                whoami
                 pwd
                 cd ~/.aws
                 cat ~/.aws/config
