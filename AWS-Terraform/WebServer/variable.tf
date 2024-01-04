@@ -1,6 +1,6 @@
-variable "access_key" {}
+#variable "access_key" {}
 
-variable "secret_access_key" {}
+#variable "secret_access_key" {}
 
 variable "port" {
   type = list
