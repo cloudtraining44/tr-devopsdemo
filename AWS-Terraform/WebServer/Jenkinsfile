@@ -22,6 +22,10 @@ pipeline {
             steps {
                 sh '''
                 export AWS_PROFILE=${profile}
+                pwd
+                cd ~/.aws
+                cat ~/.aws/config
+                cat ~/.aws/credentials
                 cd AWS-Terraform/WebServer
                 ls -l
                 terraform plan
