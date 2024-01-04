@@ -1,9 +1,20 @@
 #EC2 instance using UserData
+data "aws_ami" "amazon-linux-2" {
+ most_recent = true
+ filter {
+   name   = "owner-alias"
+   values = ["amazon"]
+ }
+ filter {
+   name   = "name"
+   values = ["amzn2-ami-hvm*"]
+ }
+}
 
 resource "aws_instance" "demo-instance" {
-  ami                    = "ami-0aedf6b1cb669b4c7"
+  ami                    = data.aws_ami.amazon-linux-2.id
   instance_type          = "t2.medium"
-  key_name               = "demokp"
+#  key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
   user_data              = "${file("userdata_jenkins_yum.sh")}"
   root_block_device {

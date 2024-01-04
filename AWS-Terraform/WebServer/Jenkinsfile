@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage ("Choose Profile") {
+            steps {
+                sh '''
+                export AWS_PROFILE=${profile}
+                '''
+            }
+        }
+    
+        stage ("terraform init") {
+            steps {
+                sh '''
+                cd AWS-Terraform/WebServer
+                ls -l
+                terraform init
+                '''
+            }
+        }
+        
+        stage ("plan") {
+            steps {
+                sh '''
+                cd AWS-Terraform/WebServer
+                ls -l
+                terraform plan
+                '''
+            }
+        }
+
+        stage ("Action") {
+            steps {
+                sh '''
+                echo "Terraform action is --> ${action}"
+                cd AWS-Terraform/WebServer
+                ls -l
+                terraform ${action} -auto-approve
+                '''
+           }
+        }
+    }
+}
+    

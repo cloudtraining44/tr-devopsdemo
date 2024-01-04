@@ -7,6 +7,14 @@ pipeline {
                 checkout scm
             }
         }
+
+        stage ("Choose Profile") {
+            steps {
+                sh '''
+                export AWS_PROFILE=${profile}
+                '''
+            }
+        }
     
         stage ("terraform init") {
             steps {
