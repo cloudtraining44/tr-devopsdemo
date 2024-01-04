@@ -7,14 +7,6 @@ pipeline {
                 checkout scm
             }
         }
-
-        stage ("Choose Profile") {
-            steps {
-                sh '''
-                export AWS_PROFILE=${profile}
-                '''
-            }
-        }
     
         stage ("terraform init") {
             steps {
@@ -29,6 +21,7 @@ pipeline {
         stage ("plan") {
             steps {
                 sh '''
+                export AWS_PROFILE=${profile}
                 cd AWS-Terraform/WebServer
                 ls -l
                 terraform plan
@@ -39,6 +32,7 @@ pipeline {
         stage ("Action") {
             steps {
                 sh '''
+                export AWS_PROFILE=${profile}
                 echo "Terraform action is --> ${action}"
                 cd AWS-Terraform/WebServer
                 ls -l
