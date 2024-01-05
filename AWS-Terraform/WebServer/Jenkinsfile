@@ -7,7 +7,18 @@ pipeline {
                 checkout scm
             }
         }
-    
+
+        stage ("AWS Creds") {
+            steps {
+                withCredentials([[
+                $class: "AmazonWebServicesCredentialsBinding",
+                credentialsId: "prod",
+                accessKeyVariable: "AWS_ACCESS_KEY_ID"
+                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+                ]])
+            }
+        }
+
         stage ("terraform init") {
             steps {
                 sh '''
@@ -21,13 +32,6 @@ pipeline {
         stage ("plan") {
             steps {
                 sh '''
-                export AWS_PROFILE=${profile}
-                echo $AWS_PROFILE
-                whoami
-                pwd
-                cd ~/.aws
-                cat ~/.aws/config
-                cat ~/.aws/credentials
                 cd AWS-Terraform/WebServer
                 ls -l
                 terraform plan
