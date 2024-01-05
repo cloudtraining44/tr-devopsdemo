@@ -11,7 +11,7 @@ pipeline {
         stage ("terraform init") {
             steps {
                 sh '''
-                cd AWS-Terraform
+                cd AWS-Terraform/Sample
                 ls -l
                 terraform init
                 '''
@@ -21,7 +21,7 @@ pipeline {
         stage ("plan") {
             steps {
                 sh '''
-                cd AWS-Terraform
+                cd AWS-Terraform/Sample
                 ls -l
                 terraform plan -var="access_key=${access_key}" -var="secret_access_key=${secret_access_key}"
                 '''
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Terraform action is --> ${action}"
-                cd AWS-Terraform
+                cd AWS-Terraform/Sample
                 ls -l
                 terraform ${action} -auto-approve -var="access_key=${access_key}" -var="secret_access_key=${secret_access_key}"
                 '''
