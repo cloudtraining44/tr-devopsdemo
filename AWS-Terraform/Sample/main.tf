@@ -3,7 +3,7 @@
 resource "aws_instance" "demo-instance" {
   ami                    = "ami-0759f51a90924c166"
   instance_type          = "t2.micro"
-  key_name               = "demokp"
+#  key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.web-sg-01.id]
   user_data              = "${file("userdata_web.sh")}"
   tags = {
