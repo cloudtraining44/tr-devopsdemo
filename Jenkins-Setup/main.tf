@@ -18,7 +18,6 @@ data "aws_ami" "amazon-linux-2" {
 resource "aws_instance" "demo-instance" {
   ami                    = data.aws_ami.amazon-linux-2.id
   instance_type          = "t2.medium"
-#  key_name               = "demokp"
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
   user_data              = "${file("userdata_jenkins_yum.sh")}"
   root_block_device {
