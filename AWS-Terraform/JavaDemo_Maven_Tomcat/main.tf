@@ -2,8 +2,8 @@
 
 resource "aws_instance" "demo-instance" {
   ami                    = "ami-0759f51a90924c166"
-  instance_type          = "t2.micro"
-#  key_name               = "demokp"
+#  ami                   = "ami-0c7217cdde317cfec" //Ubuntu
+  instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.web-sg-01.id]
   user_data              = "${file("userdata_web.sh")}"
   tags = {
@@ -28,6 +28,13 @@ resource "aws_security_group" "web-sg-01" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
  }
+ 
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
 }
 
 output "public_ip" {

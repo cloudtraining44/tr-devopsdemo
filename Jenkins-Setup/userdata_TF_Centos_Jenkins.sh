@@ -64,7 +64,7 @@ After=network.target
 [Service]
 Type=forking
 
-#Environment=JAVA_HOME=/usr/lib/jvm/jdk-17-oracle-x64/bin/java
+Environment="JAVA_HOME=/usr/lib/jvm/jdk-17-oracle-x64"
 Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
 Environment=CATALINA_HOME=/opt/tomcat
 Environment=CATALINA_BASE=/opt/tomcat
