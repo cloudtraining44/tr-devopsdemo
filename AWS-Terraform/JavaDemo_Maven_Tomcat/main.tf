@@ -2,7 +2,6 @@
 
 resource "aws_instance" "demo-instance" {
   ami                    = "ami-0759f51a90924c166"
-#  ami                   = "ami-0c7217cdde317cfec" //Ubuntu
   instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.web-sg-01.id]
   user_data              = "${file("userdata_web.sh")}"
@@ -14,7 +13,8 @@ resource "aws_instance" "demo-instance" {
 
 #Security Group Resource to open port 80 
 resource "aws_security_group" "web-sg-01" {
-  name        = "${var.Env}-Web-SG"
+#  name        = "${var.Env}-Web-SG"
+  name_prefix = "${var.Env}-Web-SG"
   description = "${var.Env}-Web-SG"
 
   dynamic ingress {
