@@ -8,5 +8,5 @@ variable "port" {
 }
 
 variable "Env" {
-  default = "gradle"
+  default = "docker"
 }

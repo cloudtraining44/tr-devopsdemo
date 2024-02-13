@@ -1,3 +1,13 @@
+#EC2 instance using UserData
+provider "aws" {
+  region = "us-east-1"
+}
+
+variable "port" {
+  type = list
+  default = [22,80,443,5432,8080]
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -24,22 +34,22 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "demo-instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.medium"
-  vpc_security_group_ids = [aws_security_group.UbuntuSG.id]
-#  user_data              = "${file("userdata_Ubuntu_apt.sh")}"
+  vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
+  user_data              = "${file("userdata_jenkins_apt.sh")}"
 
   root_block_device {
     volume_size = "30"
   }
   tags = {
-    Name  = "EC2-UB"
+    Name  = "Jenkins-Ub"
     Owner = "Terraform"
   }
 }
 
 #Security Group Resource to open port 80 
-resource "aws_security_group" "UbuntuSG" {
-  name        = "Ubuntu-SG"
-  description = "Ubuntu-SG"
+resource "aws_security_group" "JenkinsSG" {
+  name        = "Jenkins-SG"
+  description = "Jenkins-SG"
   dynamic ingress {
     for_each = var.port
 

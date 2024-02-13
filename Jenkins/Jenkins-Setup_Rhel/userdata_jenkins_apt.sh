@@ -19,3 +19,6 @@ apt-get update -y
 apt-get install jenkins -y
 
 systemctl start jenkins
+
+apt install postgresql-client -y
+
