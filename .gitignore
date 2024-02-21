@@ -1,2 +1,3 @@
 .terraform*
 terraform.tfstate*
+my-key-pair.pub
