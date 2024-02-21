@@ -25,13 +25,13 @@ resource "aws_instance" "demo-instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.UbuntuSG.id]
-#  user_data              = "${file("userdata_Ubuntu_apt.sh")}"
-
+  user_data              = "${file("userdata_docker.sh")}"
+  key_name = "my-key-pair"
   root_block_device {
     volume_size = "30"
   }
   tags = {
-    Name  = "EC2-UB"
+    Name  = "${var.Env}-VM"
     Owner = "Terraform"
   }
 }
@@ -58,8 +58,21 @@ resource "aws_security_group" "UbuntuSG" {
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+  tags = {
+    Name  = "${var.Env}-SG"
+    Owner = "Terraform"
+  }
 }
 
 output "public_ip" {
   value = aws_instance.demo-instance.public_ip
+}
+
+resource "aws_key_pair" "my_key_pair" {
+  key_name   = "my-key-pair"
+  public_key = file("${path.module}/my-key-pair.pub")
+}
+
+output "key_pair_name" {
+  value = aws_key_pair.my_key_pair.key_name
 }

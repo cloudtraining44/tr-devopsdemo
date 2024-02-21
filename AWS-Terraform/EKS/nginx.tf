@@ -1,5 +1,5 @@
 data "aws_eks_cluster" "cluster" {
-  name = "guru-eks-IgQvBPta"
+  name = local.cluster_name
 }
 
 provider "kubernetes" {
