@@ -9,6 +9,7 @@ pipeline {
         }
         stage('docker-server') {
             steps {
+              docker version
               cd development/DockerBuild
               ls -l
               docker build -t demo-app:1.0.0 .
