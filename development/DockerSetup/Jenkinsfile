@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('docker-server') {
+            steps {
+                withCredentials([[
+                $class: 'AmazonWebServicesCredentialsBinding',
+                credentialsId: 'awscreds',
+                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                sh '''
+                cd development/DockerSetup
+                ls -l
+                terraform init
+                echo "Terraform action is --> ${action}"
+                ls -l
+                terraform ${action} -auto-approve
+                '''
+                }
+            }
+        }     
+    }
+}
+
