@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('docker-server') {
+            steps {
+              cd development/DockerBuild
+              ls -l
+              docker build -t demo-app:1.0.0 .
+              docker image ls   
+            }
+        }     
+    }
+}
+
