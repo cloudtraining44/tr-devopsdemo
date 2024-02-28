@@ -11,6 +11,7 @@ pipeline {
             steps {
               sh '''
               cd development/DockerBuild
+              whoami
               ls -l
               docker build -t demo-app:1.0.0 .
               docker image ls
