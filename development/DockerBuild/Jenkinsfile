@@ -15,7 +15,8 @@ pipeline {
               ls -l
               docker build -t demo-app:1.0.0 .
               docker image ls
-              docker push demo-app:1.0.0
+              docker tag demo-app:1.0.0 sohailum/demo-app:1.0.0
+              docker push sohailum/demo-app:1.0.0
               '''
             }
         }     
