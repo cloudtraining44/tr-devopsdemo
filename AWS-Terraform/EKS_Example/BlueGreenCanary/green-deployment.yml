@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: bluegreen-test
+      color: green
+  template:
+    metadata:
+      labels:
+        app: bluegreen-test
+        color: green
+    spec:
+      containers:
+      - name: nginx
+        image: sohailum/demo-app:2.0.0
+        ports:
+        - containerPort: 80

@@ -27,7 +27,7 @@ resource "aws_instance" "Jenkins" {
     volume_size = "30"
   }
   tags = {
-    Name  = "Web-01"
+    Name  = "Jenkins"
     Owner = "Terraform"
   }
 }

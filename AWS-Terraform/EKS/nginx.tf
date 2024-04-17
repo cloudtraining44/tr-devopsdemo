@@ -1,3 +1,4 @@
+/*
 data "aws_eks_cluster" "cluster" {
   name = local.cluster_name
 }
@@ -62,3 +63,4 @@ resource "kubernetes_deployment" "nginx" {
     }
   }
 }
+*/

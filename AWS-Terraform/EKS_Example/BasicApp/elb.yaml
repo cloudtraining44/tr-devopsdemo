@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: lb-svc
   labels:
-    app: hello-world
+    app: nginx
 spec:
   type: LoadBalancer
   ports:
-  - port: 8080
+  - port: 80
   selector:
-    app: hello-world
+    app: nginx
