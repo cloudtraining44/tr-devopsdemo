@@ -5,7 +5,7 @@ provider "aws" {
 
 variable "port" {
   type = list
-  default = [22,80,443,5432,8080]
+  default = [22,80,443,5432,8080, 9090, 8081]
 }
 
 resource "aws_key_pair" "my_key_pair" {
@@ -17,10 +17,23 @@ resource "aws_key_pair" "my_key_pair" {
   }
 }
 
+data "aws_ami" "amazon-linux-2" {
+ most_recent = true
+ filter {
+   name   = "owner-alias"
+   values = ["amazon"]
+ }
+ filter {
+   name   = "name"
+   values = ["amzn2-ami-hvm*"]
+ }
+}
+
 resource "aws_instance" "Jenkins" {
-  ami                    = "ami-010d7d37120487add"
+  ami                    = data.aws_ami.amazon-linux-2.id
   instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.jenkins-sg.id]
+  user_data              = "${file("userdata_jenkins_yum.sh")}"
   key_name               = "my-key-pair"
 
   root_block_device {
